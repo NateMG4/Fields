@@ -11,6 +11,7 @@ public class Particle_Controller : MonoBehaviour
     public float emissionIntensityScalar = 1;
     public float forceScalar = 1;
     public Vector3 resultantForce;
+    public Vector3 startingVel = new Vector3(0,0,0);
     Material mymat;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class Particle_Controller : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         mymat = GetComponent<Renderer>().material;
         
+        rigidbody.velocity = startingVel;
         if(randomCharge){
             charge = Random.Range(-10f, 10f);
         }
