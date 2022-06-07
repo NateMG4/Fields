@@ -8,22 +8,30 @@ public class Particle_Controller : MonoBehaviour
     public GameObject[] particles;
     public float charge = 1f;
     public bool randomCharge = false;
+    public bool randomVelocity = false;
+    public Vector3 randomVelocityVector = new Vector3(0,0,-1);
     public float emissionIntensityScalar = 1;
     public float forceScalar = 1;
-    public Vector3 resultantForce;
     public Vector3 startingVel = new Vector3(0,0,0);
     public float velocityMag = 0;
+    public Vector3 resultantForce;
+    public bool interactWithOtherParticals = true;
     Material mymat;
     // Start is called before the first frame update
     void Start()
     {
+        resultantForce = new Vector3(0,0,0);
         rigidbody = GetComponent<Rigidbody>();
         mymat = GetComponent<Renderer>().material;
         // rigidbody.AddForce()
+        if(randomVelocity){
+            startingVel = new Vector3(0,0, -Random.Range(0f,10f));
+        }
         rigidbody.velocity = startingVel;
         if(randomCharge){
             charge = Random.Range(-10f, 10f);
         }
+
 
 
        
@@ -35,11 +43,10 @@ public class Particle_Controller : MonoBehaviour
         velocityMag = rigidbody.velocity.magnitude;
         mymat.SetColor("_EmissionColor", new Color(Mathf.Clamp(charge * emissionIntensityScalar, 0f, 255f), 0f, 
         Mathf.Abs(Mathf.Clamp(charge * emissionIntensityScalar, -255f, 0f))));
+        if(interactWithOtherParticals){
+            particles = GameObject.FindGameObjectsWithTag("Particle");
 
-        particles = GameObject.FindGameObjectsWithTag("Particle");
-
-        resultantForce = new Vector3(0,0,0);
-
+        }
         foreach (GameObject particle in particles){
             if(particle == this.gameObject)
             {
@@ -52,16 +59,20 @@ public class Particle_Controller : MonoBehaviour
 
             Vector3 force = unitVector * (Mathf.Abs(particleScript.charge*this.charge)/vector.magnitude) 
                 * -Mathf.Clamp(particleScript.charge*this.charge,-1,1);
-            resultantForce += force;
+            addForceToParticle(force, true);
         }
         Debug.DrawRay(this.transform.position, resultantForce);
+        if(resultantForce.magnitude > 0){
+            Debug.Log(resultantForce);
+        }
         rigidbody.AddForce(resultantForce);
+        resultantForce = new Vector3(0,0,0);
     }
     
     public void addForceToParticle(Vector3 force, bool changeVelMag){
         float prevVelMag = rigidbody.velocity.magnitude;
         if(changeVelMag){
-            rigidbody.AddForce(force);
+            resultantForce += force;
         }
         else{
             Vector3 v = rigidbody.velocity + (force/rigidbody.mass)*Time.fixedDeltaTime;

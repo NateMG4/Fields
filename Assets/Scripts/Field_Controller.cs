@@ -40,7 +40,7 @@ public class Field_Controller : MonoBehaviour
             Debug.DrawRay(c.gameObject.transform.position, vel, Color.red);
             Debug.DrawRay(c.gameObject.transform.position, fieldVector, Color.green);
             Debug.DrawRay(c.gameObject.transform.position, force, Color.blue);
-            particle.addForceToParticle(force, false);
+            particle.addForceToParticle(force, true);
         }
     }
 
