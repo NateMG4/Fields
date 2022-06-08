@@ -32,7 +32,6 @@ public class Field_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         foreach (Collider c in colliders){
             Vector3 vel = c.attachedRigidbody.velocity;
             Particle_Controller particle = c.gameObject.GetComponent<Particle_Controller>();
@@ -42,6 +41,13 @@ public class Field_Controller : MonoBehaviour
             Debug.DrawRay(c.gameObject.transform.position, force, Color.blue);
             particle.addForceToParticle(force, true);
         }
+    }
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = new Color(0f,1f,1f);
+        Gizmos.DrawRay(transform.position, fieldVector * 20);
+        Gizmos.DrawSphere(this.transform.position + (fieldVector * 20), .5f);
     }
 
 }

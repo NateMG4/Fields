@@ -25,7 +25,7 @@ public class Particle_Controller : MonoBehaviour
         mymat = GetComponent<Renderer>().material;
         // rigidbody.AddForce()
         if(randomVelocity){
-            startingVel = new Vector3(0,0, -Random.Range(0f,10f));
+            startingVel = randomVelocityVector * Random.Range(0f,10f);
         }
         rigidbody.velocity = startingVel;
         if(randomCharge){
@@ -63,7 +63,7 @@ public class Particle_Controller : MonoBehaviour
         }
         Debug.DrawRay(this.transform.position, resultantForce);
         if(resultantForce.magnitude > 0){
-            Debug.Log(resultantForce);
+            // Debug.Log(resultantForce);
         }
         rigidbody.AddForce(resultantForce);
         resultantForce = new Vector3(0,0,0);

@@ -13,10 +13,12 @@ public class Button_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    spawnLocation = spawnObject.transform.position;
 		Button btn = yourButton.GetComponent<Button>();
 		btn.onClick.AddListener(OnClick);    
     }
     void OnClick(){
+        Debug.Log("Click");
         GameObject obj = GameObject.Instantiate(spawnObject, spawnLocation, new Quaternion());
         obj.GetComponent<Particle_Controller>().randomVelocity = true;
     }

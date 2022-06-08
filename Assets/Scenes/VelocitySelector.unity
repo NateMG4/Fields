@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7118738371240896614, guid: cca9a672ad5b9774d8f4d8d496f03d54, type: 3}
       propertyPath: randomVelocityVector.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7118738371240896614, guid: cca9a672ad5b9774d8f4d8d496f03d54, type: 3}
       propertyPath: interactWithOtherParticals
@@ -453,7 +453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -707, y: -562}
+  m_AnchoredPosition: {x: -433, y: -175.8}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1107487754
